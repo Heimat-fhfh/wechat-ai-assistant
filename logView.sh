@@ -1,0 +1,1 @@
+sudo journalctl -u wechat-ai.service -f

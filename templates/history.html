@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>我的历史记录 - 安师记AI助手</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ahnucjx.cn/wp-content/uploads/static/js/markdown/marked.min.js"></script>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 20px; 
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        .session { 
+            border: 1px solid #ddd; 
+            padding: 15px; 
+            margin: 10px 0; 
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .session:hover {
+            border-color: #4a90e2;
+            box-shadow: 0 2px 8px rgba(74, 144, 226, 0.2);
+            transform: translateY(-2px);
+        }
+        .question { 
+            font-weight: bold; 
+            color: #333; 
+            margin-bottom: 8px;
+        }
+        .answer { 
+            color: #666; 
+            margin: 10px 0; 
+        }
+        .answer pre {
+            background-color: #f6f8fa;
+            padding: 12px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        .answer code {
+            background-color: #f6f8fa;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        .answer blockquote {
+            border-left: 4px solid #ddd;
+            padding-left: 15px;
+            margin-left: 0;
+            color: #666;
+        }
+        .time { 
+            font-size: 12px; 
+            color: #999; 
+            margin-top: 10px;
+        }
+        .status { 
+            padding: 3px 8px; 
+            border-radius: 3px; 
+            font-size: 12px; 
+            display: inline-block;
+        }
+        .completed { background: #d4edda; color: #155724; }
+        .processing { background: #fff3cd; color: #856404; }
+        .failed { background: #f8d7da; color: #721c24; }
+        .no-history {
+            text-align: center;
+            padding: 30px;
+            color: #999;
+        }
+        .user-info {
+            background-color: #f8f9fa;
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>我的历史记录</h1>
+        <div class="user-info">
+            <p>用户ID: {{ openid }}</p>
+        </div>
+        
+        {% if sessions %}
+            {% for session in sessions %}
+            <div class="session" onclick="window.location.href='https://ahnucjx.cn/ai-result/{{ session.session_id }}'">
+                <div class="question">问题: {{ session.question }}</div>
+                <div class="answer" id="answer-{{ session.session_id }}"></div>
+                <div class="time">
+                    创建时间: {{ session.created_at }} | 
+                    状态: <span class="status {{ session.status }}">{{ session.status }}</span>
+                </div>
+                <div class="time">会话ID: {{ session.session_id }}</div>
+            </div>
+            
+            <script>
+                // 渲染Markdown内容
+                document.getElementById('answer-{{ session.session_id }}').innerHTML = 
+                    marked.parse(`{{ session.answer }}`);
+            </script>
+            {% endfor %}
+        {% else %}
+            <div class="no-history">
+                <p>暂无历史记录</p>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>

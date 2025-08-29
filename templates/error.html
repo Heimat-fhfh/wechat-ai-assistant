@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>错误页面</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding: 50px; }
+        .error { color: #d63031; font-size: 24px; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div class="error">❌ {{ message }}</div>
+    <p>会话ID: {{ session_id }}</p>
+    <p>请返回公众号重新发送消息</p>
+</body>
+</html>
