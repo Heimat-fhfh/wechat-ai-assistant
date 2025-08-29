@@ -71,3 +71,6 @@ logs/
 # Temporary files
 temp/
 tmp/
+
+# Test files (may contain sensitive keys)
+test/
